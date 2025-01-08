@@ -4,11 +4,15 @@
    import Volatility from './components/Volatility';
    import PerformanceComparison from './components/PerformanceComparison';
    import SupportResistance from './components/SupportResistance';
+   import AnalyticalInsights from './components/AnalyticalInsights';
    import 'bootstrap/dist/css/bootstrap.min.css';
 
    const App = () => {
        const [selectedCoinId, setSelectedCoinId] = useState('BTC'); // Default to BTC
        const [selectedCoinIds, setSelectedCoinIds] = useState(['BTC', 'ETH']); // Default selected coins for performance comparison
+       const [priceTrendsData, setPriceTrendsData] = useState([]);
+       const [volatilityData, setVolatilityData] = useState(null);
+       const [supportResistanceData, setSupportResistanceData] = useState({});
 
        const handleCoinChange = (coinId) => {
            setSelectedCoinId(coinId);
@@ -37,14 +41,21 @@
                </div>
                <div className="row mt-4">
                    <div className="col-md-6">
-                       <PriceTrends coinId={selectedCoinId} />
+                       <PriceTrends coinId={selectedCoinId} setPriceTrendsData={setPriceTrendsData} />
                    </div>
                    <div className="col-md-6">
-                       <Volatility coinId={selectedCoinId} />
+                       <Volatility coinId={selectedCoinId} setVolatilityData={setVolatilityData} />
                    </div>
                </div>
                <div className="mt-4">
-                   <SupportResistance coinId={selectedCoinId} />
+                   <SupportResistance coinId={selectedCoinId} setSupportResistanceData={setSupportResistanceData} />
+               </div>
+               <div className="mt-4">
+                   <AnalyticalInsights 
+                       priceTrendsData={priceTrendsData} 
+                       volatilityData={volatilityData} 
+                       supportResistanceData={supportResistanceData} 
+                   />
                </div>
                <div className="mt-4">
                    <PerformanceComparison coinIds={selectedCoinIds} onCoinIdsChange={handlePerformanceCoinChange} />
