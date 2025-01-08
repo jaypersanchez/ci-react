@@ -1,0 +1,12 @@
+@startuml
+rectangle "Flask Server" {
+    (Call /api/analytics) --> (Process Data)
+    (Process Data) --> (Call OpenAI API)
+}
+
+rectangle "OpenAI API" {
+    (Call OpenAI API) --> (Generate Insights)
+    (Generate Insights) --> (Return Insights)
+}
+
+@enduml

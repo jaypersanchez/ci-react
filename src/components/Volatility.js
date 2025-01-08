@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Volatility = ({ coinId }) => {
+const Volatility = ({ coinId, setVolatilityData }) => {
     const [volatility, setVolatility] = useState(null);
     const [error, setError] = useState(null);
 
@@ -12,6 +12,7 @@ const Volatility = ({ coinId }) => {
             }
             const data = await response.json();
             setVolatility(data.volatility);
+            setVolatilityData(data.volatility);
         } catch (error) {
             setError(error.message);
         }
@@ -19,14 +20,14 @@ const Volatility = ({ coinId }) => {
 
     useEffect(() => {
         fetchVolatility(coinId);
-    }, [coinId]); // Fetch volatility whenever coinId changes
+    }, [coinId]);
 
     return (
         <div>
             <h2>Volatility for {coinId}</h2>
             {error && <p className="error">Error: {error}</p>}
             {volatility !== null ? (
-                <p>The volatility is: {volatility.toFixed(2)}</p> // Display volatility rounded to 2 decimal places
+                <p>The volatility is: {volatility.toFixed(2)}</p>
             ) : (
                 <p>Loading...</p>
             )}

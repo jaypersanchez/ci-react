@@ -1,0 +1,13 @@
+@startuml
+actor User
+
+rectangle "Crypto Application" {
+    User --> (Select Cryptocurrency)
+    User --> (View Price Trends)
+    User --> (View Volatility)
+    User --> (View Support and Resistance)
+    User --> (Get Analytical Insights)
+    User --> (Compare Performance)
+}
+
+@enduml

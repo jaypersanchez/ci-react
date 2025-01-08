@@ -1,70 +1,44 @@
-# Getting Started with Create React App
+# Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Crypto Intelligence Application is a comprehensive platform designed to provide users with insights into cryptocurrency trends, volatility, support and resistance levels, and performance comparisons. The application leverages a React frontend for user interaction and a Flask backend for data processing and integration with the OpenAI API to generate analytical insights. This documentation outlines the architecture, components, and interactions within the system.
 
-## Available Scripts
+# Architectural Design
 
-In the project directory, you can run:
 
-### `npm start`
+The architecture of the Crypto Intelligence Application consists of two main components: the **React Application** and the **Flask Server**. The following diagrams illustrate the interactions and data flow between these components.
+## 
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![Alt text](./architectural-design/crypto-application.png) 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Description**: 
+This diagram illustrates the primary use cases for the user within the Crypto Application. Users can select a cryptocurrency, view its price trends, volatility, support and resistance levels, obtain analytical insights, and compare the performance of different cryptocurrencies.
 
-### `npm test`
+![Alt text](./architectural-design/react-application.png) 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Description**: 
+This diagram illustrates the interactions between the React Application and the Flask Server. The React Application sends user requests to the Flask Server, which processes the data and calls the OpenAI API to generate insights. The insights are then returned to the React Application for display to the user.
 
-### `npm run build`
+![Alt text](./architectural-design/openai-insights.png) 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Description**: 
+This diagram illustrates the interaction between the Flask Server and the OpenAI API. The Flask Server processes the data and calls the OpenAI API to generate insights. The insights are then returned to the Flask Server for display to the user.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Alt text](./architectural-design/performance-comparison.png) 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Description**: 
+This diagram illustrates the interaction between the React Application and the Flask Server for performance comparison. The React Application sends user requests to the Flask Server, which processes the data and calls the OpenAI API to generate insights. The insights are then returned to the React Application for display to the user.
 
-### `npm run eject`
+**Component Interactions**:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **User**: The user interacts with the React Application to select a cryptocurrency, view its price trends, volatility, support and resistance levels, obtain analytical insights, and compare the performance of different cryptocurrencies.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **React Application**: The React Application is the user interface that allows the user to interact with the system. It sends user requests to the Flask Server to fetch data and insights.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **Flask Server**: The Flask Server acts as an intermediary between the React Application and the OpenAI API. It processes the data and calls the OpenAI API to generate insights.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. **OpenAI API**: The OpenAI API is used to generate analytical insights based on the data processed by the Flask Server.
 
-## Learn More
+**Conclusion**:
+The Crypto Intelligence Application provides a comprehensive platform for users to explore cryptocurrency trends, volatility, support and resistance levels, and performance comparisons. The architecture ensures efficient data processing and integration with the OpenAI API to deliver accurate and insightful analytics.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This documentation provides a detailed overview of the architecture, components, and interactions within the Crypto Intelligence Application. It ensures that the system is designed to meet the requirements of the user and provides a robust platform for exploring cryptocurrency data and insights.

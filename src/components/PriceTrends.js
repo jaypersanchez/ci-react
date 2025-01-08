@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto'; // Import Chart.js
 
-const PriceTrends = ({ coinId }) => {
+const PriceTrends = ({ coinId, setPriceTrendsData }) => {
     const [priceTrends, setPriceTrends] = useState([]);
     const [error, setError] = useState(null);
 
@@ -15,6 +15,7 @@ const PriceTrends = ({ coinId }) => {
             }
             const data = await response.json();
             setPriceTrends(data);
+            setPriceTrendsData(data); // Pass data up to App.js
         } catch (error) {
             setError(error.message);
         }

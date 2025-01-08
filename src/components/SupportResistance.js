@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const SupportResistance = ({ coinId }) => {
-    const [supportResistanceData, setSupportResistanceData] = useState({});
+const SupportResistance = ({ coinId, setSupportResistanceData }) => {
+    const [supportResistanceData, setSupportResistanceDataLocal] = useState({});
     const [error, setError] = useState(null);
 
     const fetchSupportResistance = async (coinId) => {
@@ -11,6 +11,7 @@ const SupportResistance = ({ coinId }) => {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
+            setSupportResistanceDataLocal(data);
             setSupportResistanceData(data);
         } catch (error) {
             setError(error.message);
@@ -19,7 +20,7 @@ const SupportResistance = ({ coinId }) => {
 
     useEffect(() => {
         fetchSupportResistance(coinId);
-    }, [coinId]); // Fetch support and resistance data whenever coinId changes
+    }, [coinId]);
 
     return (
         <div>
