@@ -1,5 +1,7 @@
 // src/components/PriceTrends.js
 import React, { useState, useEffect } from 'react';
+import { Line } from 'react-chartjs-2';
+import 'chart.js/auto'; // Import Chart.js
 
 const PriceTrends = ({ coinId }) => {
     const [priceTrends, setPriceTrends] = useState([]);
@@ -22,30 +24,49 @@ const PriceTrends = ({ coinId }) => {
         fetchPriceTrends(coinId);
     }, [coinId]); // Fetch price trends whenever coinId changes
 
+    // Prepare data for the line chart
+    const chartData = {
+        labels: priceTrends.map(trend => trend.timestamp), // X-axis labels
+        datasets: [
+            {
+                label: 'Close Price',
+                data: priceTrends.map(trend => trend.close), // Y-axis data
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                fill: true,
+                tension: 0.1, // Smooth line
+            },
+            {
+                label: 'Moving Average',
+                data: priceTrends.map(trend => trend.moving_average), // Y-axis data for moving average
+                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                fill: true,
+                tension: 0.1, // Smooth line
+            },
+        ],
+    };
+
     return (
         <div>
             <h2>Price Trends for {coinId}</h2>
             {error && <p className="error">Error: {error}</p>}
-            <div className="table-container">
-                <table className="price-trends-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Close</th>
-                            <th>Moving Average</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {priceTrends.map((trend, index) => (
-                            <tr key={index}>
-                                <td>{trend.timestamp}</td>
-                                <td>{trend.close}</td>
-                                <td>{trend.moving_average}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+            {priceTrends.length > 0 ? (
+                <Line data={chartData} options={{
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Price Trends',
+                        },
+                    },
+                }} />
+            ) : (
+                <p>Loading...</p>
+            )}
         </div>
     );
 };
