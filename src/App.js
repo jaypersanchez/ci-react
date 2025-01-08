@@ -2,13 +2,19 @@
    import React, { useState } from 'react';
    import PriceTrends from './components/PriceTrends';
    import Volatility from './components/Volatility';
+   import PerformanceComparison from './components/PerformanceComparison';
    import 'bootstrap/dist/css/bootstrap.min.css';
 
    const App = () => {
        const [selectedCoinId, setSelectedCoinId] = useState('BTC'); // Default to BTC
+       const [selectedCoinIds, setSelectedCoinIds] = useState(['BTC', 'ETH']); // Default selected coins for performance comparison
 
        const handleCoinChange = (coinId) => {
            setSelectedCoinId(coinId);
+       };
+
+       const handlePerformanceCoinChange = (coinIds) => {
+           setSelectedCoinIds(coinIds);
        };
 
        return (
@@ -35,6 +41,9 @@
                    <div className="col-md-6">
                        <Volatility coinId={selectedCoinId} />
                    </div>
+               </div>
+               <div className="mt-4">
+                   <PerformanceComparison coinIds={selectedCoinIds} onCoinIdsChange={handlePerformanceCoinChange} />
                </div>
            </div>
        );
