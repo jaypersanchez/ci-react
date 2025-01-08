@@ -1,0 +1,88 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* General styles for the application */
+body {
+  background-color: #f8f9fa; /* Light background color */
+  font-family: 'Arial', sans-serif; /* Clean font */
+}
+
+h1 {
+  color: #343a40; /* Darker text color for the title */
+}
+
+.table-container {
+  max-height: 300px; /* Set a maximum height for the scrollable area */
+  overflow-y: auto;  /* Enable vertical scrolling */
+  border: 1px solid #ddd; /* Border around the table container */
+  border-radius: 5px; /* Rounded corners */
+  margin-top: 20px; /* Space above the table */
+  background-color: white; /* White background for the table */
+}
+
+.price-trends-table {
+  width: 100%;
+  border-collapse: collapse; /* Collapse borders for a cleaner look */
+}
+
+.price-trends-table th,
+.price-trends-table td {
+  border: 1px solid #ddd; /* Border for table cells */
+  padding: 8px; /* Adjusted padding for better spacing */
+  text-align: left; /* Align text to the left */
+}
+
+.price-trends-table th {
+  background-color: #007bff; /* Header background color */
+  color: white; /* Header text color */
+  font-weight: bold; /* Bold header text */
+}
+
+.price-trends-table tr:nth-child(even) {
+  background-color: #f2f2f2; /* Light gray for even rows */
+}
+
+.price-trends-table tr:hover {
+  background-color: #ddd; /* Light gray on hover */
+}
+
+.error {
+  color: red; /* Error message color */
+  font-weight: bold; /* Bold error message */
+}
