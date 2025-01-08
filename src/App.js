@@ -3,6 +3,7 @@
    import PriceTrends from './components/PriceTrends';
    import Volatility from './components/Volatility';
    import PerformanceComparison from './components/PerformanceComparison';
+   import SupportResistance from './components/SupportResistance';
    import 'bootstrap/dist/css/bootstrap.min.css';
 
    const App = () => {
@@ -41,6 +42,9 @@
                    <div className="col-md-6">
                        <Volatility coinId={selectedCoinId} />
                    </div>
+               </div>
+               <div className="mt-4">
+                   <SupportResistance coinId={selectedCoinId} />
                </div>
                <div className="mt-4">
                    <PerformanceComparison coinIds={selectedCoinIds} onCoinIdsChange={handlePerformanceCoinChange} />
