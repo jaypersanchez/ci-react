@@ -1,0 +1,10 @@
+@startuml
+actor User
+
+rectangle "Performance Comparison" {
+    User --> (Select Coins to Compare)
+    (Select Coins to Compare) --> (Fetch Performance Data)
+    (Fetch Performance Data) --> (Display Performance Comparison)
+}
+
+@enduml

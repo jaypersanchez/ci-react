@@ -24,7 +24,7 @@ const AnalyticalInsights = ({ priceTrendsData, volatilityData, supportResistance
             });
 
             const data = await response.json();
-            setInsights(data.insights); // Assuming the response contains insights
+            setInsights(data.insights);  // Assuming the response contains insights
         };
 
         if (priceTrendsData.length > 0 && volatilityData !== null && supportResistanceData.support !== undefined) {

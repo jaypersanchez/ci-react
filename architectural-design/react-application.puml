@@ -1,0 +1,24 @@
+@startuml
+actor User
+
+rectangle "React Application" {
+    User --> (Select Cryptocurrency)
+    (Select Cryptocurrency) --> (Fetch Price Trends)
+    (Select Cryptocurrency) --> (Fetch Volatility)
+    (Select Cryptocurrency) --> (Fetch Support and Resistance)
+    (Fetch Price Trends) --> (Display Price Trends)
+    (Fetch Volatility) --> (Display Volatility)
+    (Fetch Support and Resistance) --> (Display Support and Resistance)
+    (Display Price Trends) --> (Get Analytical Insights)
+    (Display Volatility) --> (Get Analytical Insights)
+    (Display Support and Resistance) --> (Get Analytical Insights)
+}
+
+rectangle "Flask Server" {
+    (Get Analytical Insights) --> (Call /api/analytics)
+    (Call /api/analytics) --> (Process Data)
+    (Process Data) --> (Call OpenAI API)
+    (Call OpenAI API) --> (Return Insights)
+}
+
+@enduml
