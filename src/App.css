@@ -2,14 +2,21 @@
   text-align: center;
 }
 
+.parent-container {
+  max-width: 1200px; /* Limit the parent's width */
+  margin: 0 auto;    /* Center horizontally */
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media (max-width: 768px) {
+  .chart-container {
+      width: 90%; /* Allow more width on smaller screens */
+      height: 250px; /* Further reduce height */
+      padding: 8px; /* Reduce padding for smaller screens */
   }
 }
 
@@ -80,6 +87,19 @@ h1 {
 
 .price-trends-table tr:hover {
   background-color: #ddd; /* Light gray on hover */
+}
+
+.chart-container {
+  width: 100%;            /* Use the full width of the parent container */
+  max-width: 800px;       /* Restrict the maximum width to 800px */
+  height: 400px;          /* Set a fixed height */
+  margin: 20px auto;      /* Center horizontally with some vertical margin */
+  padding: 10px;          /* Add padding around the chart */
+  box-sizing: border-box; /* Ensure padding is included in dimensions */
+  overflow: hidden;       /* Prevent content overflow */
+  background-color: #fff; /* Optional: white background for better visibility */
+  border: 1px solid #ddd; /* Optional: light border for structure */
+  border-radius: 8px;     /* Optional: smooth corners */
 }
 
 .error {
