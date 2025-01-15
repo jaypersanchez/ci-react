@@ -1,6 +1,10 @@
 import React from 'react';
 
-const AnalyticalInsights = ({ priceTrendsData, volatilityData, supportResistanceData }) => {
+const AnalyticalInsights = ({ priceTrendsData, volatilityData, supportResistanceData, timeframe }) => {
+    const capitalizeFirstLetter = (string) => {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    };
+
     const generateInsights = () => {
         if (!priceTrendsData.length || volatilityData === null || !supportResistanceData.support || !supportResistanceData.resistance) {
             return "Insufficient data to generate insights.";
@@ -35,7 +39,7 @@ const AnalyticalInsights = ({ priceTrendsData, volatilityData, supportResistance
 
     return (
         <div>
-            <h2>Analytical Insights</h2>
+            <h2>Analytical Insights for {capitalizeFirstLetter(timeframe)} Timeframe</h2>
             <p>{generateInsights()}</p>
         </div>
     );

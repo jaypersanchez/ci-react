@@ -12,6 +12,7 @@ const App = () => {
     const [priceTrendsData, setPriceTrendsData] = useState([]);
     const [volatilityData, setVolatilityData] = useState(null);
     const [supportResistanceData, setSupportResistanceData] = useState({});
+    const [timeframe, setTimeframe] = useState('month'); // Default timeframe
 
     const handleCoinChange = (coinId) => {
         setSelectedCoinId(coinId);
@@ -19,6 +20,10 @@ const App = () => {
 
     const handlePerformanceCoinChange = (coinIds) => {
         setSelectedCoinIds(coinIds);
+    };
+
+    const handleTimeframeChange = (timeframe) => {
+        setTimeframe(timeframe);
     };
 
     return (
@@ -38,19 +43,32 @@ const App = () => {
                     <option value="SOL">Solana (SOL)</option>
                 </select>
             </div>
+            <div className="form-group">
+                <label htmlFor="timeframeSelect">Select Timeframe:</label>
+                <select
+                    id="timeframeSelect"
+                    className="form-control"
+                    value={timeframe}
+                    onChange={(e) => handleTimeframeChange(e.target.value)}
+                >
+                    <option value="day">Day</option>
+                    <option value="week">Week</option>
+                    <option value="month">Month</option>
+                </select>
+            </div>
             <div className="row mt-4">
                 <div className="col-md-6">
                     <PriceTrends
                         coinId={selectedCoinId}
                         setPriceTrendsData={setPriceTrendsData}
-                        timeframe="month"
+                        timeframe={timeframe}
                     />
                 </div>
                 <div className="col-md-6">
                     <Volatility
                         coinId={selectedCoinId}
                         setVolatilityData={setVolatilityData}
-                        timeframe="week"
+                        timeframe={timeframe}
                     />
                 </div>
             </div>
@@ -58,7 +76,7 @@ const App = () => {
                 <SupportResistance
                     coinId={selectedCoinId}
                     setSupportResistanceData={setSupportResistanceData}
-                    timeframe="week"
+                    timeframe={timeframe}
                 />
             </div>
             <div className="mt-4">
@@ -66,6 +84,7 @@ const App = () => {
                     priceTrendsData={priceTrendsData}
                     volatilityData={volatilityData}
                     supportResistanceData={supportResistanceData}
+                    timeframe={timeframe}
                 /> 
                 }
             </div>
