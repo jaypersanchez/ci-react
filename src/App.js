@@ -40,24 +40,39 @@ const App = () => {
             </div>
             <div className="row mt-4">
                 <div className="col-md-6">
-                    <PriceTrends coinId={selectedCoinId} setPriceTrendsData={setPriceTrendsData} />
+                    <PriceTrends
+                        coinId={selectedCoinId}
+                        setPriceTrendsData={setPriceTrendsData}
+                        timeframe="day"
+                    />
                 </div>
                 <div className="col-md-6">
-                    <Volatility coinId={selectedCoinId} setVolatilityData={setVolatilityData} />
+                    <Volatility
+                        coinId={selectedCoinId}
+                        setVolatilityData={setVolatilityData}
+                        timeframe="week"
+                    />
                 </div>
             </div>
             <div className="mt-4">
-                <SupportResistance coinId={selectedCoinId} setSupportResistanceData={setSupportResistanceData} />
-            </div>
-            <div className="mt-4">
-                <AnalyticalInsights 
-                    priceTrendsData={priceTrendsData} 
-                    volatilityData={volatilityData} 
-                    supportResistanceData={supportResistanceData} 
+                <SupportResistance
+                    coinId={selectedCoinId}
+                    setSupportResistanceData={setSupportResistanceData}
+                    timeframe="week"
                 />
             </div>
             <div className="mt-4">
-                <PerformanceComparison coinIds={selectedCoinIds} onCoinIdsChange={handlePerformanceCoinChange} />
+                <AnalyticalInsights
+                    priceTrendsData={priceTrendsData}
+                    volatilityData={volatilityData}
+                    supportResistanceData={supportResistanceData}
+                />
+            </div>
+            <div className="mt-4">
+                <PerformanceComparison
+                    coinIds={selectedCoinIds}
+                    onCoinIdsChange={handlePerformanceCoinChange}
+                />
             </div>
         </div>
     );

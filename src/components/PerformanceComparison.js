@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const PerformanceComparison = ({ coinIds, onCoinIdsChange }) => {
-    const [performanceData, setPerformanceData] = useState({});
+    const [performanceData, setPerformanceData] = useState([]);
     const [error, setError] = useState(null);
 
     const fetchPerformanceComparison = async (coinIds) => {
@@ -44,9 +44,9 @@ const PerformanceComparison = ({ coinIds, onCoinIdsChange }) => {
                 </select>
             </div>
             <ul>
-                {Object.entries(performanceData).map(([coinId, performance]) => (
-                    <li key={coinId}>
-                        {coinId}: {performance.toFixed(2)} {/* Display performance rounded to 2 decimal places */}
+                {performanceData.map(({ coin_id, performance_percentage }) => (
+                    <li key={coin_id}>
+                        {coin_id}: {performance_percentage.toFixed(2)}% {/* Display performance rounded to 2 decimal places */}
                     </li>
                 ))}
             </ul>

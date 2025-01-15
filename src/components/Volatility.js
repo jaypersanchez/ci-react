@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const Volatility = ({ coinId, setVolatilityData }) => {
+const Volatility = ({ coinId, setVolatilityData, timeframe }) => {
     const [volatility, setVolatility] = useState(null);
     const [error, setError] = useState(null);
 
-    const fetchVolatility = async (coinId) => {
+    const fetchVolatility = async (coinId, timeframe) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/volatility?coin_id=${coinId}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/volatility?coin_id=${coinId}&timeframe=${timeframe}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -19,8 +19,8 @@ const Volatility = ({ coinId, setVolatilityData }) => {
     };
 
     useEffect(() => {
-        fetchVolatility(coinId);
-    }, [coinId]);
+        fetchVolatility(coinId, timeframe);
+    }, [coinId, timeframe]);
 
     return (
         <div>
@@ -34,5 +34,4 @@ const Volatility = ({ coinId, setVolatilityData }) => {
         </div>
     );
 };
-
 export default Volatility;

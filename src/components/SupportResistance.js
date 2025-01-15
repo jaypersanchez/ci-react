@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
-const SupportResistance = ({ coinId, setSupportResistanceData }) => {
+const SupportResistance = ({ coinId, setSupportResistanceData, timeframe }) => {
     const [supportResistanceData, setSupportResistanceDataLocal] = useState({});
     const [error, setError] = useState(null);
 
-    const fetchSupportResistance = async (coinId) => {
+    const fetchSupportResistance = async (coinId, timeframe) => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/support_resistance?coin_id=${coinId}`);
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/support_resistance?coin_id=${coinId}&timeframe=${timeframe}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
@@ -19,8 +18,8 @@ const SupportResistance = ({ coinId, setSupportResistanceData }) => {
     };
 
     useEffect(() => {
-        fetchSupportResistance(coinId);
-    }, [coinId]);
+        fetchSupportResistance(coinId, timeframe);
+    }, [coinId, timeframe]);
 
     return (
         <div>
@@ -37,5 +36,4 @@ const SupportResistance = ({ coinId, setSupportResistanceData }) => {
         </div>
     );
 };
-
 export default SupportResistance;
