@@ -1,47 +1,42 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
-const AnalyticalInsights = ({ priceTrendsData, volatilityData, supportResistanceData, predictions }) => {
-    const [insights, setInsights] = useState('');
-
-    useEffect(() => {
-        const generateInsights = async () => {
-            const requestData = {
-                priceTrends: priceTrendsData,
-                predictions: predictions || [],
-                volatility: volatilityData,
-                support: supportResistanceData.support,
-                resistance: supportResistanceData.resistance,
-            };
-        
-            try {
-                const url = `${process.env.REACT_APP_API_URL}/api/analytics`;
-                console.log(`Posting data to: ${url}`); // Log the URL for debugging
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(requestData),
-                });
-                if (!response.ok) {
-                    throw new Error(`Network response was not ok. Status: ${response.status}`);
-                }
-                const data = await response.json();
-                setInsights(data.insights || 'No insights available.');
-            } catch (error) {
-                console.error('Error generating insights:', error); // Log the error
-                setInsights('Error generating insights.');
-            }
-        };
-        
-
-        if (priceTrendsData.length > 0 && volatilityData !== null && supportResistanceData.support !== undefined) {
-            generateInsights();
+const AnalyticalInsights = ({ priceTrendsData, volatilityData, supportResistanceData }) => {
+    const generateInsights = () => {
+        if (!priceTrendsData.length || volatilityData === null || !supportResistanceData.support || !supportResistanceData.resistance) {
+            return "Insufficient data to generate insights.";
         }
-    }, [priceTrendsData, volatilityData, supportResistanceData, predictions]);
+
+        const latestPrice = priceTrendsData[priceTrendsData.length - 1].close; // Get the latest closing price
+        const support = supportResistanceData.support;
+        const resistance = supportResistanceData.resistance;
+
+        let insights = [];
+
+        // Analyze volatility
+        if (volatilityData < 0.05) {
+            insights.push("The market is currently stable with low volatility.");
+        } else if (volatilityData < 0.15) {
+            insights.push("The market is moderately volatile. Caution is advised.");
+        } else {
+            insights.push("The market is highly volatile. Consider risk management strategies.");
+        }
+
+        // Compare latest price with support and resistance
+        if (latestPrice < support) {
+            insights.push("The price is below the support level, indicating a bearish trend.");
+        } else if (latestPrice > resistance) {
+            insights.push("The price is above the resistance level, indicating a bullish trend.");
+        } else {
+            insights.push("The price is within the support and resistance levels, indicating a consolidation phase.");
+        }
+
+        return insights.join(" ");
+    };
 
     return (
         <div>
             <h2>Analytical Insights</h2>
-            {insights ? <p>{insights}</p> : <p>Loading insights...</p>}
+            <p>{generateInsights()}</p>
         </div>
     );
 };

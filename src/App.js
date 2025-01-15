@@ -62,11 +62,11 @@ const App = () => {
                 />
             </div>
             <div className="mt-4">
-                 { //<AnalyticalInsights
-                    //priceTrendsData={priceTrendsData}
-                   // volatilityData={volatilityData}
-                    //supportResistanceData={supportResistanceData}
-                ///> 
+                 { <AnalyticalInsights
+                    priceTrendsData={priceTrendsData}
+                    volatilityData={volatilityData}
+                    supportResistanceData={supportResistanceData}
+                /> 
                 }
             </div>
             <div className="mt-4">
