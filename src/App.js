@@ -43,7 +43,7 @@ const App = () => {
                     <PriceTrends
                         coinId={selectedCoinId}
                         setPriceTrendsData={setPriceTrendsData}
-                        timeframe="day"
+                        timeframe="month"
                     />
                 </div>
                 <div className="col-md-6">
@@ -62,11 +62,12 @@ const App = () => {
                 />
             </div>
             <div className="mt-4">
-                <AnalyticalInsights
-                    priceTrendsData={priceTrendsData}
-                    volatilityData={volatilityData}
-                    supportResistanceData={supportResistanceData}
-                />
+                 { //<AnalyticalInsights
+                    //priceTrendsData={priceTrendsData}
+                   // volatilityData={volatilityData}
+                    //supportResistanceData={supportResistanceData}
+                ///> 
+                }
             </div>
             <div className="mt-4">
                 <PerformanceComparison

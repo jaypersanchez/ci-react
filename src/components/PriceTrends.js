@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2'; // Importing Chart.js for rendering the chart
+import { Chart, registerables } from 'chart.js'; // Import Chart.js and registerables
+
+// Register all necessary components
+Chart.register(...registerables);
 
 const PriceTrends = ({ coinId, setPriceTrendsData }) => {
     const [priceTrends, setPriceTrends] = useState([]);
@@ -10,7 +14,7 @@ const PriceTrends = ({ coinId, setPriceTrendsData }) => {
     const fetchPriceTrends = async () => {
         try {
             const response = await fetch(
-                `${process.env.REACT_APP_API_URL}/api/price_trends?coin_id=${coinId}&timeframe=${timeframe}&predict=true`
+                `${process.env.REACT_APP_API_URL}/api/price_trends?coin_id=${coinId}&timeframe=${timeframe}&predict=false`
             );
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -33,10 +37,31 @@ const PriceTrends = ({ coinId, setPriceTrendsData }) => {
         labels: priceTrends.map((entry) => new Date(entry.timestamp).toLocaleDateString()), // Format timestamps for the x-axis
         datasets: [
             {
-                label: `Price (USD) - ${coinId}`,
-                data: priceTrends.map((entry) => entry.close),
+                label: `Open Price (USD) - ${coinId}`,
+                data: priceTrends.map((entry) => entry.open),
                 fill: false,
                 borderColor: 'rgba(75,192,192,1)',
+                tension: 0.1,
+            },
+            {
+                label: `High Price (USD) - ${coinId}`,
+                data: priceTrends.map((entry) => entry.high),
+                fill: false,
+                borderColor: 'rgba(255,206,86,1)', // Different color for high price
+                tension: 0.1,
+            },
+            {
+                label: `Low Price (USD) - ${coinId}`,
+                data: priceTrends.map((entry) => entry.low),
+                fill: false,
+                borderColor: 'rgba(255,99,132,1)', // Different color for low price
+                tension: 0.1,
+            },
+            {
+                label: `Close Price (USD) - ${coinId}`,
+                data: priceTrends.map((entry) => entry.close),
+                fill: false,
+                borderColor: 'rgba(54,162,235,1)', // Different color for close price
                 tension: 0.1,
             },
             predictions.length > 0 && {
