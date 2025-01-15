@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const PerformanceComparison = ({ coinIds, onCoinIdsChange }) => {
     const [performanceData, setPerformanceData] = useState([]);
     const [error, setError] = useState(null);
+    const [insights, setInsights] = useState('');
 
     const fetchPerformanceComparison = async (coinIds) => {
         try {
@@ -12,9 +13,32 @@ const PerformanceComparison = ({ coinIds, onCoinIdsChange }) => {
             }
             const data = await response.json();
             setPerformanceData(data);
+            generateInsights(data); // Generate insights based on the fetched data
         } catch (error) {
             setError(error.message);
         }
+    };
+
+    const generateInsights = (data) => {
+        if (data.length < 2) return; // Ensure there are at least two coins to compare
+
+        let insights = `Performance Comparison: \n`;
+        data.forEach(coin => {
+            insights += `- ${coin.coin_id} has experienced a change of ${coin.performance_percentage.toFixed(2)}%. \n`;
+        });
+
+        // Determine which coin performed better
+        const bestPerformingCoin = data.reduce((prev, current) => {
+            return (prev.performance_percentage > current.performance_percentage) ? prev : current;
+        });
+
+        const worstPerformingCoin = data.reduce((prev, current) => {
+            return (prev.performance_percentage < current.performance_percentage) ? prev : current;
+        });
+
+        insights += `\nThis indicates that ${bestPerformingCoin.coin_id} has outperformed ${worstPerformingCoin.coin_id} over the specified timeframe.`;
+
+        setInsights(insights);
     };
 
     useEffect(() => {
@@ -50,6 +74,12 @@ const PerformanceComparison = ({ coinIds, onCoinIdsChange }) => {
                     </li>
                 ))}
             </ul>
+            {insights && (
+                <div className="insights">
+                    <h3>Insights:</h3>
+                    <p>{insights}</p>
+                </div>
+            )}
         </div>
     );
 };

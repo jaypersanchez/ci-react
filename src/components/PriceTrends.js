@@ -5,11 +5,10 @@ import { Chart, registerables } from 'chart.js'; // Import Chart.js and register
 // Register all necessary components
 Chart.register(...registerables);
 
-const PriceTrends = ({ coinId, setPriceTrendsData }) => {
+const PriceTrends = ({ coinId, setPriceTrendsData, timeframe }) => {
     const [priceTrends, setPriceTrends] = useState([]);
     const [predictions, setPredictions] = useState([]);
     const [error, setError] = useState(null);
-    const timeframe = 'month'; // Default timeframe
 
     const fetchPriceTrends = async () => {
         try {
@@ -30,7 +29,7 @@ const PriceTrends = ({ coinId, setPriceTrendsData }) => {
 
     useEffect(() => {
         fetchPriceTrends();
-    }, [coinId]);
+    }, [coinId, timeframe]);
 
     // Prepare data for the chart
     const chartData = {
