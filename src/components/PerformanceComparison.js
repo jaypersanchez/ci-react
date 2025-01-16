@@ -76,7 +76,7 @@ const PerformanceComparison = ({ coinIds, onCoinIdsChange }) => {
             </ul>
             {insights && (
                 <div className="insights">
-                    <h3>Insights:</h3>
+                    <h3>Perofrmance Comparison Insights:</h3>
                     <p>{insights}</p>
                 </div>
             )}
