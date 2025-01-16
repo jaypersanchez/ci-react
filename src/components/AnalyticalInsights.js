@@ -1,46 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const AnalyticalInsights = ({ priceTrendsData, volatilityData, supportResistanceData, timeframe }) => {
-    const capitalizeFirstLetter = (string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
+const AnalyticalInsights = ({ aggregatedData, timeframe }) => {
+    const [insights, setInsights] = useState('');
+    const [error, setError] = useState(null);
+
+    const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
+
+    const fetchAIInsights = async (data) => {
+        //console.log("Data sent to /analyze endpoint:", data); 
+        try {
+            // Transform priceTrends to include only `open` and `close` values
+            const transformedPriceTrends = data.priceTrends.map((entry) => ({
+                open: entry.open,
+                close: entry.close,
+            }));
+            const requestBody = {
+                priceTrends: transformedPriceTrends,
+                volatility: data.volatility,
+                supportResistance: {
+                    support: data.supportResistance?.support,
+                    resistance: data.supportResistance?.resistance,
+                },
+            };
+    
+            console.log("Request Body Sent to /analyze:", requestBody); // Debug transformed request body
+
+            const response = await fetch('http://localhost:5001/analyze', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+            });
+
+            if (!response.ok) {
+                const errorBody = await response.text();
+                console.error('Error fetching AI insights:', errorBody);
+                throw new Error('Failed to fetch AI insights');
+            }
+
+            const result = await response.json();
+            setInsights(result.insights);
+        } catch (err) {
+            console.error('Error fetching AI insights:', err);
+            setError('Unable to fetch AI insights. Please try again later.');
+        }
     };
 
-    const generateInsights = () => {
-        if (!priceTrendsData.length || volatilityData === null || !supportResistanceData.support || !supportResistanceData.resistance) {
-            return "Insufficient data to generate insights.";
+    useEffect(() => {
+        if (
+            aggregatedData.priceTrends.length &&
+            aggregatedData.volatility !== null &&
+            aggregatedData.supportResistance.support &&
+            aggregatedData.supportResistance.resistance
+        ) {
+            fetchAIInsights(aggregatedData);
         }
-
-        const latestPrice = priceTrendsData[priceTrendsData.length - 1].close; // Get the latest closing price
-        const support = supportResistanceData.support;
-        const resistance = supportResistanceData.resistance;
-
-        let insights = [];
-
-        // Analyze volatility
-        if (volatilityData < 0.05) {
-            insights.push("The market is currently stable with low volatility.");
-        } else if (volatilityData < 0.15) {
-            insights.push("The market is moderately volatile. Caution is advised.");
-        } else {
-            insights.push("The market is highly volatile. Consider risk management strategies.");
-        }
-
-        // Compare latest price with support and resistance
-        if (latestPrice < support) {
-            insights.push("The price is below the support level, indicating a bearish trend.");
-        } else if (latestPrice > resistance) {
-            insights.push("The price is above the resistance level, indicating a bullish trend.");
-        } else {
-            insights.push("The price is within the support and resistance levels, indicating a consolidation phase.");
-        }
-
-        return insights.join(" ");
-    };
+    }, [aggregatedData]);
 
     return (
         <div>
             <h2>Analytical Insights for {capitalizeFirstLetter(timeframe)} Timeframe</h2>
-            <p>{generateInsights()}</p>
+            {error && <p className="error">{error}</p>}
+            <p>{insights || 'Generating insights...'}</p>
         </div>
     );
 };
